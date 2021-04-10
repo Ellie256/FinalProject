@@ -12,7 +12,7 @@ void MergeSort(vector<int> &v);
 // Merge sort
 // 100,000 pieces of data
 
-// note
+// changed
 int main() {
     vector<int> vec = {7, 4, 9, 3, 2, 8, 6, 5};
 
