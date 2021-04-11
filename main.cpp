@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <math.h>
 using namespace std;
 
 void Swap(int a, int b, vector<int>& v); // send in indices that need to be swapped
@@ -14,8 +15,15 @@ void MergeSort(vector<int> &v);
 
 // changed
 int main() {
-    vector<int> vec = {7, 4, 9, 3, 2, 8, 6, 5};
+    vector<int> v = {7, 4, 9, 3, 2, 8, 6, 5, 4, 7, 11, 2, 3, 9};
+    // vector<int> v = {12, 34, 54, 2, 3};
+    cout << "[ ";
+    for(int i = 0; i < v.size(); i++) {
+        cout << v.at(i) << ", ";
+    }
+    cout << "]" << endl;
 
+    /*
     // get current time
     std::chrono::high_resolution_clock::time_point start1 = std::chrono::high_resolution_clock::now();
 
@@ -25,7 +33,9 @@ int main() {
     // measure difference
     std::chrono::duration<double> elapsed1 = end1 - start1;
     cout << "Elapsed time to push in seconds: " << elapsed1.count() << endl;
+    */
 
+    ShellSort(v);
 
 
     return 0;
@@ -38,7 +48,33 @@ void Swap(int a, int b, vector<int> &v) {
 }
 
 void ShellSort(vector<int> &v) {
+    int pass = 1;
+    int k = (int) (log(v.size()) / log(2));
+    int gap = pow(2, k) - 1;
+    while(gap > 0) {
+        for(int i = 0; i < v.size() - gap; i++) {
+            if(v.at(i) > v.at(i + gap)) {
+                Swap(i, i+gap, v);
 
+                for(int j = i; j >= gap; j -= gap) {
+                    if(v.at(j) < v.at(j - gap)) {
+                        Swap(j, j-gap, v);
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+        }
+        cout << "Gap " << gap << ": [ ";
+        for(int i = 0; i < v.size(); i++) {
+            cout << v.at(i) << ", ";
+        }
+        cout << "]" << endl;
+        pass++;
+        k--;
+        gap = pow(2, k) - 1;
+    }
 }
 
 void MergeSort(vector<int> &v) {
