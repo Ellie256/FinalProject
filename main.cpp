@@ -2,12 +2,16 @@
 #include <vector>
 #include <chrono>
 #include <math.h>
+#include <fstream>
+#include <sstream>
+#include "Song.h"
 using namespace std;
 
 void Swap(int a, int b, vector<int>& v); // send in indices that need to be swapped
 void ShellSort(vector<int> &v);
 void Merge(vector<int> &v, int left, int mid, int right);
 void MergeSort(vector<int> &v, int left, int right);
+vector<Song> LoadData(string &path);
 
 int main() {
     // vector<int> v = {7, 4, 9, 3, 2, 8, 6, 5, 4, 7, 11, 2, 3, 9};
@@ -138,4 +142,66 @@ void Merge(vector<int> &v, int left, int mid, int right) {
         j++;
         k++;
     }
+}
+
+vector<Song> LoadData(string &path) {
+    // Put data from file into ifstream
+    ifstream inFile;
+    // Open the file
+    inFile.open(path);
+
+    // Make a vector of Songs
+    vector<Song> songs;
+
+    string lineFromFile;
+    // Ignore headers
+    getline(inFile, lineFromFile);
+
+    // Get line from file
+    while(getline(inFile, lineFromFile)) {
+
+        // Make a separate string stream
+        istringstream lineStream(lineFromFile);
+
+        // Get name
+        string name;
+        getline(lineStream, name, ',');
+
+        // Get artist
+        string artist;
+        getline(lineStream, artist, ',');
+
+        // Get popularity
+        string s;
+        getline(lineStream, s, ',');
+        int popularity = stoi(s);
+
+        // Get danceability
+        getline(lineStream, s, ',');
+        float danceability = stof(s);
+
+        // Get duration
+        getline(lineStream, s, ',');
+        int duration = stoi(s);
+
+        // Get tempo
+        getline(lineStream, s, ',');
+        float tempo = stof(s);
+
+        // Get loudness
+        getline(lineStream, s, ',');
+        float loudness = stof(s);
+
+        // Get year
+        getline(lineStream, s);
+        int year = stoi(s);
+
+        // Make new Song
+        Song newSong(name, artist, popularity, danceability, duration, tempo, loudness, year);
+
+        // Put new Song into vector
+        songs.push_back(newSong);
+    }
+
+    return songs;
 }
