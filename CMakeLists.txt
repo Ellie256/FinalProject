@@ -3,4 +3,4 @@ project(FinalProject)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(FinalProject main.cpp)
+add_executable(FinalProject main.cpp Song.cpp Song.h)

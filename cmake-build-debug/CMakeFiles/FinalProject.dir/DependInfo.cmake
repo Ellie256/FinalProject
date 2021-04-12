@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/Song.cpp" "C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/cmake-build-debug/CMakeFiles/FinalProject.dir/Song.cpp.obj"
   "C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/main.cpp" "C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/cmake-build-debug/CMakeFiles/FinalProject.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/Song.cpp">
+			<Option target="FinalProject"/>
+		</Unit>
+		<Unit filename="C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/Song.h">
+			<Option target="FinalProject"/>
+		</Unit>
 		<Unit filename="C:/Users/HP/OneDrive/Documents/Current Classes/Data Structures/FinalProject/main.cpp">
 			<Option target="FinalProject"/>
 		</Unit>

@@ -9,12 +9,6 @@ void ShellSort(vector<int> &v);
 void Merge(vector<int> &v, int left, int mid, int right);
 void MergeSort(vector<int> &v, int left, int right);
 
-// implement two non-quadratic sorts and compare performance of both
-// Shell sort
-// Merge sort
-// 100,000 pieces of data
-
-// changed
 int main() {
     // vector<int> v = {7, 4, 9, 3, 2, 8, 6, 5, 4, 7, 11, 2, 3, 9};
     // vector<int> v = {12, 34, 54, 2, 3};
@@ -55,6 +49,7 @@ void Swap(int a, int b, vector<int> &v) {
 }
 
 // function inspired by powerpoint, "Graphs-2", slide 34, by Amanpreet Kapoor
+// The gap function is based on Hibbard's sequence
 void ShellSort(vector<int> &v) {
     int pass = 1;
     int k = (int) (log(v.size()) / log(2));
