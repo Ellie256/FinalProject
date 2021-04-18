@@ -71,8 +71,8 @@ int main() {
 
     //                  0, 1, 2, 3, 4, 5, 6, 7,  8,  9,  10, 11, 12,  13,  14,  15,  16
     vector<int> arr = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 700 };
-    int search = 700;
-    cout << "Index: " << JumpSearch(arr, search, 0);
+    int search = 4;
+    cout << "Index: " << FibonacciSearch(arr, search, 0);
 
     return 0;
 }
@@ -273,7 +273,54 @@ int JumpSearch(vector<int> &v, int search, int option) {
     return -1;
 }
 
+// function inspired by GeeksforGeeks article, "Fibonacci Search"
 int FibonacciSearch(vector<int> &v, int search, int option) {
+    // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+
+    int fib1 = 0;
+    int fib2 = 1;
+    int fib3 = 1;
+
+    while (fib3 < v.size()) {
+        fib1 = fib2;
+        fib2 = fib3;
+        fib3 = fib1 + fib2;
+    }
+
+    int offset = -1;
+
+    while (fib3 > 1) {
+        int i;
+        if(offset + fib1 <= v.size() - 1) {
+            i = offset + fib1;
+        }
+        else {
+            i = v.size() - 1;
+        }
+
+        // 0, 1, 1, 2, 3,    5, 8, 13,       21, 34, 55
+        if (search > v.at(i)) {
+            fib3 = fib2;
+            fib2 = fib1;
+            fib1 = fib3 - fib2;
+            offset = i;
+        }
+        else if (search < v.at(i)) {
+            fib3 = fib1;
+            fib2 = fib2 - fib1;
+            fib1 = fib3 - fib2;
+        }
+        else {
+            return i;
+        }
+    }
+
+    if(fib2 != 0 && v.at(offset + 1) == search) {
+        return offset + 1;
+    }
+    else {
+        return -1;
+    }
 
 }
 
