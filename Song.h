@@ -6,7 +6,7 @@ class Song {
 public:
     // Constructor
     Song(string _name = "", string _artist = "", float _popularity = -1, float _danceability = -1,
-         float _duration = -1, float _tempo = -1, float _loudness = 1, float _year = -1);
+         float _duration = -1, float _tempo = -1, float _year = -1);
 
     // Accessors
     string GetName() {return name;}
@@ -15,7 +15,6 @@ public:
     float GetDanceability() {return danceability;}
     float GetDuration() {return duration;}
     float GetTempo() {return tempo;}
-    float GetLoudness() {return loudness;}
     float GetYear() {return year;}
     string GetTime() {return time;}
     string GetString(int option);
@@ -28,7 +27,6 @@ public:
     void SetDanceability(float _danceability) {danceability = _danceability;}
     void SetDuration(float _duration) {duration = _duration;}
     void SetTempo(float _tempo) {tempo = _tempo;}
-    void SetLoudness(float _loudness) {loudness = _loudness;}
     void SetYear(float _year) {year = _year;}
 
 private:
@@ -38,7 +36,6 @@ private:
     float danceability;
     float duration;
     float tempo;
-    float loudness;
     float year;
     string time;
 };

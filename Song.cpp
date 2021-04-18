@@ -1,14 +1,13 @@
 #include "Song.h"
 
 Song::Song(string _name, string _artist, float _popularity, float _danceability, float _duration, float _tempo,
-           float _loudness, float _year) {
+           float _year) {
     name = _name;
     artist = _artist;
     popularity = _popularity;
     danceability = _danceability;
     duration = _duration;
     tempo = _tempo;
-    loudness = _loudness;
     year = _year;
 
     int seconds = (int)duration / 1000;
@@ -52,9 +51,6 @@ float Song::GetFloat(int option) {
             return tempo;
             break;
         case 7:
-            return loudness;
-            break;
-        case 8:
             return year;
             break;
         default:

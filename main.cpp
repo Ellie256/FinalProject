@@ -19,27 +19,19 @@ int FibonacciSearch(vector<Song> &v, int search, int option); // returns the ind
 void LoadData(string &path, vector<Song> &one, vector<Song> &two);
 void PrintMainMenu();
 void PrintSortMenu();
+void PrintSortOptionMenu();
+void SortOption(vector<Song> &shell, vector<Song> &merge, int option);
 
 int main() {
-    /*
-    // get current time
-    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-
-    // get current time
-    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-
-    // measure difference
-    std::chrono::duration<double> elapsed = end - start;
-    cout << "Elapsed time to push in seconds: " << elapsed.count() << endl;
-     */
 
     vector<Song> shell;
     vector<Song> merge;
     string path = "example.csv";
     LoadData(path, shell, merge);
 
+
     /*
-    ShellSort(shell, 5);
+    MergeSort(merge, 0, merge.size(), 1);
 
     for(int i = 0; i < shell.size(); i++) {
         cout << "name: " << shell.at(i).GetName() << endl;
@@ -48,13 +40,28 @@ int main() {
         cout << "danceability: " << shell.at(i).GetDanceability() << endl;
         cout << "duration: " << shell.at(i).GetTime() << endl;
         cout << "tempo: " << shell.at(i).GetTempo() << endl;
-        cout << "loudness: " << shell.at(i).GetLoudness() << endl;
         cout << "year: " << shell.at(i).GetYear() << endl;
         cout << endl;
     }
      */
 
     int option = 0;
+    int sortedBy = 0;
+
+    // In order to search, the vectors must be sorted
+    cout << "---------------------------------------------------" << endl;
+    cout << "Welcome to the Song Searcher" << endl;
+    cout << "Songs Have 8 Characteristics: " << endl;
+    cout << "   Name of the Song" << endl;
+    cout << "   Artist" << endl;
+    cout << "   Popularity (Ranges from 0 to 100)" << endl;
+    cout << "   Danceability (Ranges from 0 to 1)" << endl;
+    cout << "   Duration of the Song" << endl;
+    cout << "   Tempo in Beats per Minute" << endl;
+    cout << "   Year the Song was Released" << endl;
+    cout << "First, Choose a Characteristic to Sort the Songs By" << endl;
+    cout << "---------------------------------------------------" << endl;
+    SortOption(shell, merge, option);
 
     // This while loop is for the whole program
     while (option != -1) {
@@ -72,21 +79,12 @@ int main() {
                 break;
             }
         }
+        // Next go into either Sort or Search
         if (option != -1) {
             switch (option) {
                 // Sort
                 case 1:
-                    PrintSortMenu();
-                    cin >> option;
-                    // Exit if user inputs -1
-                    if (option == -1) {
-                        break;
-                    }
-                        // Enter another number if option is not valid
-                    else if (option < 1 || option > 8) {
-                        throw runtime_error("Error: Please enter a valid option.");
-                    }
-
+                    SortOption(shell, merge, option);
                     break;
                 // Search
                 case 2:
@@ -106,7 +104,7 @@ void Swap(vector<Song> &v, int a, int b) {
     v.at(b) = temp;
 }
 
-// function inspired by powerpoint, "Graphs-2", slide 34, by Amanpreet Kapoor
+// function inspired by powerpoint, "Sorting-2", slide 34, by Amanpreet Kapoor
 void ShellSort(vector<Song> &v, int option) {
     // Initialize k to be the largest so that gap is not larger than the size of the vector
     int k = (int) (log(v.size()) / log(2));
@@ -160,7 +158,7 @@ void ShellSort(vector<Song> &v, int option) {
     }
 }
 
-// function inspired by powerpoint, "Graphs-2", slide 49, by Amanpreet Kapoor
+// function inspired by powerpoint, "Sorting-2", slide 49, by Amanpreet Kapoor
 void MergeSort(vector<Song> &v, int left, int right, int option) {
     if (left < right) {
         // m is the point where the array is divided into two subarrays
@@ -174,7 +172,7 @@ void MergeSort(vector<Song> &v, int left, int right, int option) {
     }
 }
 
-// function inspired by powerpoint, "Graphs-2", slide 50, by Amanpreet Kapoor
+// function inspired by powerpoint, "Sorting-2", slide 50, by Amanpreet Kapoor
 // Merge two subarrays from arr
 void Merge(vector<Song> &v, int left, int mid, int right, int option) {
     // Create X ← arr[left..mid] & Y ← arr[mid+1..right]
@@ -283,16 +281,12 @@ void LoadData(string &path, vector<Song> &one, vector<Song> &two) {
         getline(lineStream, s, ',');
         float tempo = stof(s);
 
-        // Get loudness
-        getline(lineStream, s, ',');
-        float loudness = stof(s);
-
         // Get year
         getline(lineStream, s);
         float year = stof(s);
 
         // Make new Song
-        Song newSong(name, artist, popularity, danceability, duration, tempo, loudness, year);
+        Song newSong(name, artist, popularity, danceability, duration, tempo, year);
 
         // Put new Song into vector
         one.push_back(newSong);
@@ -470,10 +464,124 @@ void PrintSortMenu() {
     cout << "4. Danceability" << endl;
     cout << "5. Song Duration" << endl;
     cout << "6. Tempo" << endl;
-    cout << "7. Loudness" << endl;
-    cout << "8. Year" << endl;
+    cout << "7. Year" << endl;
     cout << "(Enter an option, type -1 to go back to Main Menu)" << endl;
     cout << "---------------------------------------------------" << endl;
+}
+
+void PrintSortOptionMenu() {
+    cout << "---------------------------------------------------" << endl;
+    cout << "Would you like to use: " << endl;
+    cout << "1. Shell Sort" << endl;
+    cout << "2. Merge Sort" << endl;
+    cout << "(Enter an option, type -1 to exit)" << endl;
+    cout << "---------------------------------------------------" << endl;
+}
+
+void SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point end;
+    std::chrono::duration<double> elapsed;
+
+    int option2 = 0;
+    int compare = 0;
+
+    // This while loop is to get a valid sort menu option
+    while (option != -1) {
+        PrintSortMenu();
+        cin >> option;
+
+        // Enter another number if option is not valid
+        if (option != -1 && (option < 1 || option > 7)) {
+            cout << "Error: Please enter a valid option." << endl;
+        }
+        else {
+            break;
+        }
+    }
+
+    // This while loop is to get a valid sort option
+    while (option2 != -1) {
+        PrintSortOptionMenu();
+        cin >> option2;
+
+        // Enter another number if option is not valid
+        if (option2 != 1 && option2 != 2) {
+            cout << "Error: Please enter a valid option." << endl;
+        }
+        else {
+            break;
+        }
+    }
+
+    if(option2 == 1) {
+        start = std::chrono::high_resolution_clock::now();
+        ShellSort(shell, option);
+        end = std::chrono::high_resolution_clock::now();
+        elapsed = end - start;
+        cout << "Time for Shell Sort in seconds: " << elapsed.count() << endl;
+
+        start = std::chrono::high_resolution_clock::now();
+        MergeSort(merge, 0, merge.size() - 1, option);
+        end = std::chrono::high_resolution_clock::now();
+        elapsed = end - start;
+
+        // This while loop is to get a valid option
+        while (option2 != -1) {
+            cout << "---------------------------------------------------" << endl;
+            cout << "Do you want to compare this time with Merge Sort?" << endl;
+            cout << "1. Yes" << endl;
+            cout << "2. No" << endl;
+            cout << "---------------------------------------------------" << endl;
+
+            cin >> compare;
+            // Enter another number if option is not valid
+            if (compare != 1 && compare != 2) {
+                cout << "Error: Please enter a valid option." << endl;
+            }
+            else {
+                break;
+            }
+        }
+
+        if(compare == 1) {
+            cout << "Time for Merge Sort in seconds: " << elapsed.count() << endl;
+        }
+    }
+    else if(option2 == 2) {
+        start = std::chrono::high_resolution_clock::now();
+        MergeSort(merge, 0, merge.size() - 1, option);
+        end = std::chrono::high_resolution_clock::now();
+        elapsed = end - start;
+        cout << "Time for Merge Sort in seconds: " << elapsed.count() << endl;
+
+        start = std::chrono::high_resolution_clock::now();
+        ShellSort(shell, option);
+        end = std::chrono::high_resolution_clock::now();
+        elapsed = end - start;
+
+        // This while loop is to get a valid option
+        while (option2 != -1) {
+            cout << "---------------------------------------------------" << endl;
+            cout << "Do you want to compare this time with Shell Sort?" << endl;
+            cout << "1. Yes" << endl;
+            cout << "2. No" << endl;
+            cout << "---------------------------------------------------" << endl;
+
+            cin >> compare;
+            // Enter another number if option is not valid
+            if (compare != 1 && compare != 2) {
+                cout << "Error: Please enter a valid option." << endl;
+            }
+            else {
+                break;
+            }
+        }
+
+        if(compare == 1) {
+            cout << "Time for Shell Sort in seconds: " << elapsed.count() << endl;
+        }
+    }
 }
 
 
