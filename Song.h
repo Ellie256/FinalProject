@@ -5,36 +5,40 @@ using namespace std;
 class Song {
 public:
     // Constructor
-    Song(string _name = "", string _artist = "", int _popularity = -1, float _danceability = -1,
-         int _duration = -1, float _tempo = -1, float _loudness = 1, int _year = -1);
+    Song(string _name = "", string _artist = "", float _popularity = -1, float _danceability = -1,
+         float _duration = -1, float _tempo = -1, float _loudness = 1, float _year = -1);
 
     // Accessors
     string GetName() {return name;}
     string GetArtist() {return artist;}
-    int GetPopularity() {return popularity;}
+    float GetPopularity() {return popularity;}
     float GetDanceability() {return danceability;}
-    int GetDuration() {return duration;}
+    float GetDuration() {return duration;}
     float GetTempo() {return tempo;}
     float GetLoudness() {return loudness;}
-    int GetYear() {return year;}
+    float GetYear() {return year;}
+    string GetTime() {return time;}
+    string GetString(int option);
+    float GetFloat(int option);
 
     // Mutators
     void SetName(string _name) {name = _name;}
     void SetArtist(string _artist) {artist = _artist;}
-    void SetPopularity(int _popularity) {popularity = _popularity;}
+    void SetPopularity(float _popularity) {popularity = _popularity;}
     void SetDanceability(float _danceability) {danceability = _danceability;}
-    void SetDuration(int _duration) {duration = _duration;}
+    void SetDuration(float _duration) {duration = _duration;}
     void SetTempo(float _tempo) {tempo = _tempo;}
     void SetLoudness(float _loudness) {loudness = _loudness;}
-    void SetYear(int _year) {year = _year;}
+    void SetYear(float _year) {year = _year;}
 
 private:
     string name;
     string artist;
-    int popularity;
+    float popularity;
     float danceability;
-    int duration;
+    float duration;
     float tempo;
     float loudness;
-    int year;
+    float year;
+    string time;
 };
