@@ -12,15 +12,17 @@ void Swap (vector<Song> &v, int a, int b);
 void ShellSort(vector<Song> &v, int option);
 void MergeSort(vector<Song> &v, int left, int right, int option);
 void Merge(vector<Song> &v, int left, int mid, int right, int option);
-template <typename T>
-int JumpSearch(vector<Song> &v, int search, int option); // returns the index, returns -1 if not found
-template <typename T>
-int FibonacciSearch(vector<Song> &v, int search, int option); // returns the index, returns -1 if not found
+int JumpSearchString(vector<Song> &v, string search, int option); // returns the index, returns -1 if not found
+int JumpSearchFloat(vector<Song> &v, float search, int option); // returns the index, returns -1 if not found
+int FibonacciSearchString(vector<Song> &v, string search, int option); // returns the index, returns -1 if not found
+int FibonacciSearchFloat(vector<Song> &v, float search, int option); // returns the index, returns -1 if not found
 void LoadData(string &path, vector<Song> &one, vector<Song> &two);
 void PrintMainMenu();
 void PrintSortMenu();
 void PrintSortOptionMenu();
-void SortOption(vector<Song> &shell, vector<Song> &merge, int option);
+void PrintSearchOptionMenu();
+int SortOption(vector<Song> &shell, vector<Song> &merge, int option);
+int SearchOption(vector<Song> &v, int option);
 
 int main() {
 
@@ -29,9 +31,9 @@ int main() {
     string path = "example.csv";
     LoadData(path, shell, merge);
 
-
     /*
-    MergeSort(merge, 0, merge.size(), 1);
+    MergeSort(merge, 0, merge.size() - 1, 1);
+    SearchOption(merge, 1);
 
     for(int i = 0; i < shell.size(); i++) {
         cout << "name: " << shell.at(i).GetName() << endl;
@@ -61,7 +63,8 @@ int main() {
     cout << "   Year the Song was Released" << endl;
     cout << "First, Choose a Characteristic to Sort the Songs By" << endl;
     cout << "---------------------------------------------------" << endl;
-    SortOption(shell, merge, option);
+    option = SortOption(shell, merge, option);
+    sortedBy = option;
 
     // This while loop is for the whole program
     while (option != -1) {
@@ -72,7 +75,7 @@ int main() {
             cin >> option;
 
             // Enter another number if it's not 1 or 2
-            if (option != 1 && option != 2) {
+            if (option != -1 && option != 1 && option != 2) {
                 cout << "Error: Please enter a valid option." << endl;
             }
             else {
@@ -84,10 +87,12 @@ int main() {
             switch (option) {
                 // Sort
                 case 1:
-                    SortOption(shell, merge, option);
+                    option = SortOption(shell, merge, option);
+                    sortedBy = option;
                     break;
                 // Search
                 case 2:
+                    option = SearchOption(shell, sortedBy);
                     break;
                 default:
                     break;
@@ -295,78 +300,78 @@ void LoadData(string &path, vector<Song> &one, vector<Song> &two) {
 }
 
 // function inspired by GeeksforGeeks article, "Jump Search"
-template <typename T>
-int JumpSearch(vector<Song> &v, T search, int option) {
+int JumpSearchString(vector<Song> &v, string search, int option) {
     int jump = sqrt(v.size());
     int minIndex = 0;
     int maxIndex;
 
     // Jump
-    // Compare Strings
-    if (option > 3) {
-        for (int i = 0; i < v.size(); i += jump) {
-            if (search == v.at(i).GetString(option)) {
-                return i;
-            }
-            else if (search < v.at(i).GetString(option)) {
-                maxIndex = i;
-                break;
-            } else {
-                minIndex = i;
-            }
+    for (int i = 0; i < v.size(); i += jump) {
+        if (search == v.at(i).GetString(option)) {
+            return i;
         }
-
-        // Check for case that search is near the end of v
-        if (search > v.at(maxIndex).GetString(option)) {
-            minIndex = maxIndex;
-            maxIndex = v.size();
-        }
-
-        // Linear
-        for (int i = minIndex + 1; i < maxIndex; i++) {
-            if (search == v.at(i).GetString(option)) {
-                return i;
-            }
+        else if (search < v.at(i).GetString(option)) {
+            maxIndex = i;
+            break;
+        } else {
+            minIndex = i;
         }
     }
-    // Compare Floats
-    else {
-        for (int i = 0; i < v.size(); i += jump) {
-            if (search == v.at(i).GetFloat(option)) {
-                return i;
-            }
-            else if (search < v.at(i).GetFloat(option)) {
-                maxIndex = i;
-                break;
-            }
-            else {
-                minIndex = i;
-            }
-        }
-
-        // Check for case that search is near the end of v
-        if (search > v.at(maxIndex).GetFloat(option)) {
-            minIndex = maxIndex;
-            maxIndex = v.size();
-        }
-
-        // Linear
-        for (int i = minIndex + 1; i < maxIndex; i++) {
-            if (search == v.at(i).GetFloat(option)) {
-                return i;
-            }
+    // Check for case that search is near the end of v
+    if (search > v.at(maxIndex).GetString(option)) {
+        minIndex = maxIndex;
+        maxIndex = v.size();
+    }
+    // Linear
+    for (int i = minIndex + 1; i < maxIndex; i++) {
+        if (search == v.at(i).GetString(option)) {
+            return i;
         }
     }
+
+
+    // If nothing has been returned, it doesn't exist
+    return -1;
+}
+
+// function inspired by GeeksforGeeks article, "Jump Search"
+int JumpSearchFloat(vector<Song> &v, float search, int option) {
+    int jump = sqrt(v.size());
+    int minIndex = 0;
+    int maxIndex;
+
+    // Jump
+    for (int i = 0; i < v.size(); i += jump) {
+        if (search == v.at(i).GetFloat(option)) {
+            return i;
+        }
+        else if (search < v.at(i).GetFloat(option)) {
+            maxIndex = i;
+            break;
+        }
+        else {
+            minIndex = i;
+        }
+    }
+    // Check for case that search is near the end of v
+    if (search > v.at(maxIndex).GetFloat(option)) {
+        minIndex = maxIndex;
+        maxIndex = v.size();
+    }
+    // Linear
+    for (int i = minIndex + 1; i < maxIndex; i++) {
+        if (search == v.at(i).GetFloat(option)) {
+            return i;
+        }
+    }
+
 
     // If nothing has been returned, it doesn't exist
     return -1;
 }
 
 // function inspired by GeeksforGeeks article, "Fibonacci Search"
-template <typename T>
-int FibonacciSearch(vector<Song> &v, T search, int option) {
-    // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
-
+int FibonacciSearchString(vector<Song> &v, string search, int option) {
     int fib1 = 0;
     int fib2 = 1;
     int fib3 = 1;
@@ -379,67 +384,78 @@ int FibonacciSearch(vector<Song> &v, T search, int option) {
 
     int offset = -1;
 
-    // Compare Strings
-    if (option < 3) {
-        while (fib3 > 1) {
-            int i;
-            if (offset + fib1 <= v.size() - 1) {
-                i = offset + fib1;
-            }
-            else {
-                i = v.size() - 1;
-            }
-
-            if (search > v.at(i).GetString(option)) {
-                fib3 = fib2;
-                fib2 = fib1;
-                fib1 = fib3 - fib2;
-                offset = i;
-            }
-            else if (search < v.at(i).GetString(option)) {
-                fib3 = fib1;
-                fib2 = fib2 - fib1;
-                fib1 = fib3 - fib2;
-            }
-            else {
-                return i;
-            }
+    while (fib3 > 1) {
+        int i;
+        if (offset + fib1 <= v.size() - 1) {
+            i = offset + fib1;
         }
-
-        if (fib2 != 0 && v.at(offset + 1).GetString(option) == search) {
-            return offset + 1;
+        else {
+            i = v.size() - 1;
+        }
+        if (search > v.at(i).GetString(option)) {
+            fib3 = fib2;
+            fib2 = fib1;
+            fib1 = fib3 - fib2;
+            offset = i;
+        }
+        else if (search < v.at(i).GetString(option)) {
+            fib3 = fib1;
+            fib2 = fib2 - fib1;
+            fib1 = fib3 - fib2;
+        }
+        else {
+            return i;
         }
     }
-    // Compare Floats
-    else {
-        while (fib3 > 1) {
-            int i;
-            if (offset + fib1 <= v.size() - 1) {
-                i = offset + fib1;
-            }
-            else {
-                i = v.size() - 1;
-            }
 
-            if (search > v.at(i).GetFloat(option)) {
-                fib3 = fib2;
-                fib2 = fib1;
-                fib1 = fib3 - fib2;
-                offset = i;
-            }
-            else if (search < v.at(i).GetFloat(option)) {
-                fib3 = fib1;
-                fib2 = fib2 - fib1;
-                fib1 = fib3 - fib2;
-            }
-            else {
-                return i;
-            }
-        }
+    if (fib2 != 0 && v.at(offset + 1).GetString(option) == search) {
+        return offset + 1;
+    }
 
-        if (fib2 != 0 && v.at(offset + 1).GetFloat(option) == search) {
-            return offset + 1;
+    // If nothing has been returned, it doesn't exist
+    return -1;
+}
+
+// function inspired by GeeksforGeeks article, "Fibonacci Search"
+int FibonacciSearchFloat(vector<Song> &v, float search, int option) {
+    int fib1 = 0;
+    int fib2 = 1;
+    int fib3 = 1;
+
+    while (fib3 < v.size()) {
+        fib1 = fib2;
+        fib2 = fib3;
+        fib3 = fib1 + fib2;
+    }
+
+    int offset = -1;
+
+    while (fib3 > 1) {
+        int i;
+        if (offset + fib1 <= v.size() - 1) {
+            i = offset + fib1;
         }
+        else {
+            i = v.size() - 1;
+        }
+        if (search > v.at(i).GetFloat(option)) {
+            fib3 = fib2;
+            fib2 = fib1;
+            fib1 = fib3 - fib2;
+            offset = i;
+        }
+        else if (search < v.at(i).GetFloat(option)) {
+            fib3 = fib1;
+            fib2 = fib2 - fib1;
+            fib1 = fib3 - fib2;
+        }
+        else {
+            return i;
+        }
+    }
+
+    if (fib2 != 0 && v.at(offset + 1).GetFloat(option) == search) {
+        return offset + 1;
     }
 
     // If nothing has been returned, it doesn't exist
@@ -465,7 +481,7 @@ void PrintSortMenu() {
     cout << "5. Song Duration" << endl;
     cout << "6. Tempo" << endl;
     cout << "7. Year" << endl;
-    cout << "(Enter an option, type -1 to go back to Main Menu)" << endl;
+    cout << "(Enter an option, type -1 to exit)" << endl;
     cout << "---------------------------------------------------" << endl;
 }
 
@@ -478,7 +494,16 @@ void PrintSortOptionMenu() {
     cout << "---------------------------------------------------" << endl;
 }
 
-void SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
+void PrintSearchOptionMenu() {
+    cout << "---------------------------------------------------" << endl;
+    cout << "Would you like to use: " << endl;
+    cout << "1. Jump Search" << endl;
+    cout << "2. Fibonacci Search" << endl;
+    cout << "(Enter an option, type -1 to exit)" << endl;
+    cout << "---------------------------------------------------" << endl;
+}
+
+int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
     std::chrono::high_resolution_clock::time_point start;
     std::chrono::high_resolution_clock::time_point end;
     std::chrono::duration<double> elapsed;
@@ -501,12 +526,12 @@ void SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
     }
 
     // This while loop is to get a valid sort option
-    while (option2 != -1) {
+    while (option2 != -1 && option != -1) {
         PrintSortOptionMenu();
         cin >> option2;
 
         // Enter another number if option is not valid
-        if (option2 != 1 && option2 != 2) {
+        if (option2 != -1 && option2 != 1 && option2 != 2) {
             cout << "Error: Please enter a valid option." << endl;
         }
         else {
@@ -582,7 +607,152 @@ void SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
             cout << "Time for Shell Sort in seconds: " << elapsed.count() << endl;
         }
     }
+
+    if (option == -1 || option2 == -1) {
+        return -1;
+    }
+    else {
+        return option;
+    }
 }
+
+int SearchOption(vector<Song> &v, int option) {
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point end;
+    std::chrono::duration<double> elapsed;
+
+    string s;
+    float f;
+    int option2 = 1;
+    int index = 0;
+
+    switch (option) {
+        case 1:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a song name you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            getline(cin, s);
+            getline(cin, s);
+            break;
+        case 2:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a artist you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            getline(cin, s);
+            getline(cin, s);
+            break;
+        case 3:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a popularity you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            cin >> f;
+            break;
+        case 4:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a danceability you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            cin >> f;
+            break;
+        case 5:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a duration you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            cin >> f;
+            break;
+        case 6:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a tempo you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            cin >> f;
+            break;
+        case 7:
+            cout << "---------------------------------------------------" << endl;
+            cout << "Enter a year you want to search for" << endl;
+            cout << "---------------------------------------------------" << endl;
+            cin >> f;
+            break;
+        default:
+            break;
+    }
+
+    // This while loop is to get a valid search option
+    while (option2 != -1) {
+        PrintSearchOptionMenu();
+        cin >> option2;
+        // Enter another number if option is not valid
+        if (option2 != -1 && option2 != 1 && option2 != 2) {
+            cout << "Error: Please enter a valid option." << endl;
+        }
+        else {
+            break;
+        }
+    }
+
+    if (option2 == 1) {
+        if (option < 3) {
+            start = std::chrono::high_resolution_clock::now();
+            index = JumpSearchString(v, s, option);
+            end = std::chrono::high_resolution_clock::now();
+            elapsed = end - start;
+        }
+        else {
+            start = std::chrono::high_resolution_clock::now();
+            index = JumpSearchFloat(v, f, option);
+            end = std::chrono::high_resolution_clock::now();
+            elapsed = end - start;
+        }
+        if (index != -1) {
+            cout << "name: " << v.at(index).GetName() << endl;
+            cout << "artist: " << v.at(index).GetArtist() << endl;
+            cout << "popularity: " << v.at(index).GetPopularity() << endl;
+            cout << "danceability: " << v.at(index).GetDanceability() << endl;
+            cout << "duration: " << v.at(index).GetTime() << endl;
+            cout << "tempo: " << v.at(index).GetTempo() << endl;
+            cout << "year: " << v.at(index).GetYear() << endl;
+            cout << endl;
+        }
+        else {
+            cout << "Song not found" << endl;
+        }
+        cout << "Time for Jump Search in seconds: " << elapsed.count() << endl;
+        return option2;
+    }
+    else if (option2 == 2) {
+        if (option < 3) {
+            start = std::chrono::high_resolution_clock::now();
+            index = FibonacciSearchString(v, s, option);
+            end = std::chrono::high_resolution_clock::now();
+            elapsed = end - start;
+        }
+        else {
+            start = std::chrono::high_resolution_clock::now();
+            index = FibonacciSearchFloat(v, f, option);
+            end = std::chrono::high_resolution_clock::now();
+            elapsed = end - start;
+        }
+        if (index != -1) {
+            cout << "name: " << v.at(index).GetName() << endl;
+            cout << "artist: " << v.at(index).GetArtist() << endl;
+            cout << "popularity: " << v.at(index).GetPopularity() << endl;
+            cout << "danceability: " << v.at(index).GetDanceability() << endl;
+            cout << "duration: " << v.at(index).GetTime() << endl;
+            cout << "tempo: " << v.at(index).GetTempo() << endl;
+            cout << "year: " << v.at(index).GetYear() << endl;
+            cout << endl;
+        }
+        else {
+            cout << "Song not found" << endl;
+        }
+        cout << "Time for Fibonacci Search in seconds: " << elapsed.count() << endl;
+        return option2;
+    }
+    else {
+        return -1;
+    }
+
+}
+
+
 
 
 
