@@ -833,48 +833,58 @@ void PrintSong(Song &s) {
 }
 
 void ListOption(vector<Song> &v, int option) {
-    int list;
-    cout << "---------------------------------------------------" << endl;
-    cout << "How many songs do you want to list?" << endl;
-    cout << "---------------------------------------------------" << endl;
-    cin >> list;
+    int list = 0;
+
+    while (list > v.size() || list < 1) {
+        cout << "---------------------------------------------------" << endl;
+        cout << "How many songs do you want to list?" << endl;
+        cout << "---------------------------------------------------" << endl;
+        cin >> list;
+
+        if (list > v.size()) {
+            cout << "Error: Value is too large." << endl;
+        }
+        else if (list < 1) {
+            cout << "Error: Value is too small." << endl;
+        }
+    }
 
     cout << "---------------------------------------------------" << endl;
     cout << "Top " << to_string(list) << " songs by ";
 
     switch (option) {
         case 1:
-            cout << "name:" << endl;
+            cout << "Name:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintForwards(v, list);
             break;
         case 2:
-            cout << "artist:" << endl;
+            cout << "Artist:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintForwards(v, list);
             break;
         case 3:
-            cout << "popularity:" << endl;
+            cout << "Popularity:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 4:
-            cout << "danceability:" << endl;
+            cout << "Danceability:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 5:
-            cout << "duration:" << endl;
+            cout << "Duration:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 6:
-            cout << "tempo:" << endl;
+            cout << "Tempo:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 7:
-            cout << "year:" << endl;
+            cout << "Year:" << endl;
             cout << "---------------------------------------------------" << endl;
             PrintForwards(v, list);
     }
