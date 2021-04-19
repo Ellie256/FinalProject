@@ -25,6 +25,8 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option);
 int SearchOption(vector<Song> &v, int option);
 void PrintSong(Song &s);
 void ListOption(vector<Song> &v, int option);
+void PrintForwards(vector<Song> &v, int list);
+void PrintBackwards(vector<Song> &v, int list);
 
 int main() {
 
@@ -477,7 +479,7 @@ void PrintMainMenu() {
     cout << "Main Menu" << endl;
     cout << "1. Sort" << endl;
     cout << "2. Search" << endl;
-    cout << "3. List Top 5" << endl;
+    cout << "3. List Top Songs" << endl;
     cout << "(Enter an option, type -1 to exit)" << endl;
     cout << "---------------------------------------------------" << endl;
 }
@@ -636,6 +638,7 @@ int SearchOption(vector<Song> &v, int option) {
     float f;
     int option2 = 1;
     int index = 0;
+    int total = 0;
 
     switch (option) {
         case 1:
@@ -706,14 +709,17 @@ int SearchOption(vector<Song> &v, int option) {
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetString(option) == s) {
+                    total++;
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
                 while (i < v.size() && v.at(i).GetString(option) == s) {
+                    total++;
                     PrintSong(v.at(i));
                     i++;
                 }
+                cout << "Total Number of Songs: " << total << endl;
                 end = std::chrono::high_resolution_clock::now();
                 elapsed = end - start;
             }
@@ -729,15 +735,18 @@ int SearchOption(vector<Song> &v, int option) {
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetFloat(option) == f) {
+                    total++;
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
 
                 while (i < v.size() && v.at(i).GetFloat(option) == f) {
+                    total++;
                     PrintSong(v.at(i));
                     i++;
                 }
+                cout << "Total Number of Songs: " << total << endl;
                 end = std::chrono::high_resolution_clock::now();
                 elapsed = end - start;
             }
@@ -757,14 +766,17 @@ int SearchOption(vector<Song> &v, int option) {
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetString(option) == s) {
+                    total++;
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
                 while (i < v.size() && v.at(i).GetString(option) == s) {
+                    total++;
                     PrintSong(v.at(i));
                     i++;
                 }
+                cout << "Total Number of Songs: " << total << endl;
                 end = std::chrono::high_resolution_clock::now();
                 elapsed = end - start;
             }
@@ -780,14 +792,17 @@ int SearchOption(vector<Song> &v, int option) {
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetFloat(option) == f) {
+                    total++;
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
                 while (i < v.size() && v.at(i).GetFloat(option) == f) {
+                    total++;
                     PrintSong(v.at(i));
                     i++;
                 }
+                cout << "Total Number of Songs: " << total << endl;
                 end = std::chrono::high_resolution_clock::now();
                 elapsed = end - start;
             }
@@ -807,19 +822,73 @@ int SearchOption(vector<Song> &v, int option) {
 }
 
 void PrintSong(Song &s) {
-    cout << "name: " << s.GetName() << endl;
-    cout << "artist: " << s.GetArtist() << endl;
-    cout << "popularity: " << s.GetPopularity() << endl;
-    cout << "danceability: " << s.GetDanceability() << endl;
-    cout << "duration: " << s.GetTime() << endl;
-    cout << "tempo: " << s.GetTempo() << endl;
-    cout << "year: " << s.GetYear() << endl;
+    cout << "Name: " << s.GetName() << endl;
+    cout << "Artist: " << s.GetArtist() << endl;
+    cout << "Popularity: " << s.GetPopularity() << endl;
+    cout << "Danceability: " << s.GetDanceability() << endl;
+    cout << "Duration: " << s.GetTime() << endl;
+    cout << "Tempo: " << s.GetTempo() << endl;
+    cout << "Year: " << s.GetYear() << endl;
     cout << endl;
 }
 
 void ListOption(vector<Song> &v, int option) {
-    for(int i = v.size() - 1; i > v.size() - 6; i--) {
+    int list;
+    cout << "---------------------------------------------------" << endl;
+    cout << "How many songs do you want to list?" << endl;
+    cout << "---------------------------------------------------" << endl;
+    cin >> list;
+
+    cout << "---------------------------------------------------" << endl;
+    cout << "Top " << to_string(list) << " songs by ";
+
+    switch (option) {
+        case 1:
+            cout << "name:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintForwards(v, list);
+            break;
+        case 2:
+            cout << "artist:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintForwards(v, list);
+            break;
+        case 3:
+            cout << "popularity:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintBackwards(v, list);
+            break;
+        case 4:
+            cout << "danceability:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintBackwards(v, list);
+            break;
+        case 5:
+            cout << "duration:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintBackwards(v, list);
+            break;
+        case 6:
+            cout << "tempo:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintBackwards(v, list);
+            break;
+        case 7:
+            cout << "year:" << endl;
+            cout << "---------------------------------------------------" << endl;
+            PrintForwards(v, list);
+    }
+
+}
+
+void PrintForwards(vector<Song> &v, int list) {
+    for(int i = 0; i < list; i++) {
         PrintSong(v.at(i));
     }
 }
 
+void PrintBackwards(vector<Song> &v, int list) {
+    for(int i = v.size() - 1; i > v.size() - 1 - list; i--) {
+        PrintSong(v.at(i));
+    }
+}
