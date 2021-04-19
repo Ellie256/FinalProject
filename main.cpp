@@ -23,6 +23,7 @@ void PrintSortOptionMenu();
 void PrintSearchOptionMenu();
 int SortOption(vector<Song> &shell, vector<Song> &merge, int option);
 int SearchOption(vector<Song> &v, int option);
+void PrintSong(Song &s);
 
 int main() {
 
@@ -691,27 +692,48 @@ int SearchOption(vector<Song> &v, int option) {
         if (option < 3) {
             start = std::chrono::high_resolution_clock::now();
             index = JumpSearchString(v, s, option);
-            end = std::chrono::high_resolution_clock::now();
-            elapsed = end - start;
+            if (index != -1) {
+                int i = index;
+                while (v.at(i).GetString(option) == s && i > -1) {
+                    PrintSong(v.at(i));
+                    i--;
+                }
+                i = index + 1;
+                while (v.at(i).GetString(option) == s && i < v.size()) {
+                    PrintSong(v.at(i));
+                    i++;
+                }
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
+            else {
+                cout << "Song not found" << endl;
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
         }
         else {
             start = std::chrono::high_resolution_clock::now();
             index = JumpSearchFloat(v, f, option);
-            end = std::chrono::high_resolution_clock::now();
-            elapsed = end - start;
-        }
-        if (index != -1) {
-            cout << "name: " << v.at(index).GetName() << endl;
-            cout << "artist: " << v.at(index).GetArtist() << endl;
-            cout << "popularity: " << v.at(index).GetPopularity() << endl;
-            cout << "danceability: " << v.at(index).GetDanceability() << endl;
-            cout << "duration: " << v.at(index).GetTime() << endl;
-            cout << "tempo: " << v.at(index).GetTempo() << endl;
-            cout << "year: " << v.at(index).GetYear() << endl;
-            cout << endl;
-        }
-        else {
-            cout << "Song not found" << endl;
+            if (index != -1) {
+                int i = index;
+                while (v.at(i).GetFloat(option) == f && i > -1) {
+                    PrintSong(v.at(i));
+                    i--;
+                }
+                i = index + 1;
+                while (v.at(i).GetFloat(option) == f && i < v.size()) {
+                    PrintSong(v.at(i));
+                    i++;
+                }
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
+            else {
+                cout << "Song not found" << endl;
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
         }
         cout << "Time for Jump Search in seconds: " << elapsed.count() << endl;
         return option2;
@@ -720,27 +742,48 @@ int SearchOption(vector<Song> &v, int option) {
         if (option < 3) {
             start = std::chrono::high_resolution_clock::now();
             index = FibonacciSearchString(v, s, option);
-            end = std::chrono::high_resolution_clock::now();
-            elapsed = end - start;
+            if (index != -1) {
+                int i = index;
+                while (v.at(i).GetString(option) == s && i > -1) {
+                    PrintSong(v.at(i));
+                    i--;
+                }
+                i = index + 1;
+                while (v.at(i).GetString(option) == s && i < v.size()) {
+                    PrintSong(v.at(i));
+                    i++;
+                }
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
+            else {
+                cout << "Song not found" << endl;
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
         }
         else {
             start = std::chrono::high_resolution_clock::now();
             index = FibonacciSearchFloat(v, f, option);
-            end = std::chrono::high_resolution_clock::now();
-            elapsed = end - start;
-        }
-        if (index != -1) {
-            cout << "name: " << v.at(index).GetName() << endl;
-            cout << "artist: " << v.at(index).GetArtist() << endl;
-            cout << "popularity: " << v.at(index).GetPopularity() << endl;
-            cout << "danceability: " << v.at(index).GetDanceability() << endl;
-            cout << "duration: " << v.at(index).GetTime() << endl;
-            cout << "tempo: " << v.at(index).GetTempo() << endl;
-            cout << "year: " << v.at(index).GetYear() << endl;
-            cout << endl;
-        }
-        else {
-            cout << "Song not found" << endl;
+            if (index != -1) {
+                int i = index;
+                while (v.at(i).GetFloat(option) == f && i > -1) {
+                    PrintSong(v.at(i));
+                    i--;
+                }
+                i = index + 1;
+                while (v.at(i).GetFloat(option) == f && i < v.size()) {
+                    PrintSong(v.at(i));
+                    i++;
+                }
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
+            else {
+                cout << "Song not found" << endl;
+                end = std::chrono::high_resolution_clock::now();
+                elapsed = end - start;
+            }
         }
         cout << "Time for Fibonacci Search in seconds: " << elapsed.count() << endl;
         return option2;
@@ -751,7 +794,16 @@ int SearchOption(vector<Song> &v, int option) {
 
 }
 
-
+void PrintSong(Song &s) {
+    cout << "name: " << s.GetName() << endl;
+    cout << "artist: " << s.GetArtist() << endl;
+    cout << "popularity: " << s.GetPopularity() << endl;
+    cout << "danceability: " << s.GetDanceability() << endl;
+    cout << "duration: " << s.GetTime() << endl;
+    cout << "tempo: " << s.GetTempo() << endl;
+    cout << "year: " << s.GetYear() << endl;
+    cout << endl;
+}
 
 
 
