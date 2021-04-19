@@ -557,7 +557,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         ShellSort(shell, option);
         end = std::chrono::high_resolution_clock::now();
         elapsed = end - start;
-        cout << "Time for Shell Sort in seconds: " << elapsed.count() << endl;
+        cout << "Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
 
         start = std::chrono::high_resolution_clock::now();
         MergeSort(merge, 0, merge.size() - 1, option);
@@ -583,7 +583,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         }
 
         if(compare == 1) {
-            cout << "Time for Merge Sort in seconds: " << elapsed.count() << endl;
+            cout << "Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
         }
     }
     else if(option2 == 2) {
@@ -591,7 +591,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         MergeSort(merge, 0, merge.size() - 1, option);
         end = std::chrono::high_resolution_clock::now();
         elapsed = end - start;
-        cout << "Time for Merge Sort in seconds: " << elapsed.count() << endl;
+        cout << "Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
 
         start = std::chrono::high_resolution_clock::now();
         ShellSort(shell, option);
@@ -617,7 +617,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         }
 
         if(compare == 1) {
-            cout << "Time for Shell Sort in seconds: " << elapsed.count() << endl;
+            cout << "Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
         }
     }
 
@@ -630,9 +630,9 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
 }
 
 int SearchOption(vector<Song> &v, int option) {
-    std::chrono::high_resolution_clock::time_point start;
-    std::chrono::high_resolution_clock::time_point end;
-    std::chrono::duration<double> elapsed;
+    auto start = chrono::steady_clock::now();
+    auto end = chrono::steady_clock::now();
+    auto elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 
     string s;
     float f;
@@ -695,7 +695,9 @@ int SearchOption(vector<Song> &v, int option) {
         cin >> option2;
         // Enter another number if option is not valid
         if (option2 != -1 && option2 != 1 && option2 != 2) {
+            cout << "---------------------------------------------------" << endl;
             cout << "Error: Please enter a valid option." << endl;
+            cout << "---------------------------------------------------" << endl;
         }
         else {
             break;
@@ -704,8 +706,10 @@ int SearchOption(vector<Song> &v, int option) {
 
     if (option2 == 1) {
         if (option < 3 || option == 5) {
-            start = std::chrono::high_resolution_clock::now();
+            start = chrono::steady_clock::now();;
             index = JumpSearchString(v, s, option);
+            end = chrono::steady_clock::now();;
+            elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetString(option) == s) {
@@ -719,19 +723,21 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "Total Number of Songs: " << total << endl << endl;
             }
             else {
+                cout << "---------------------------------------------------" << endl;
                 cout << "Song not found" << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "---------------------------------------------------" << endl;
+                end = chrono::steady_clock::now();
+                elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
         else {
-            start = std::chrono::high_resolution_clock::now();
+            start = chrono::steady_clock::now();
             index = JumpSearchFloat(v, f, option);
+            end = chrono::steady_clock::now();
+            elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetFloat(option) == f) {
@@ -746,23 +752,25 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "Total Number of Songs: " << total << endl << endl;
             }
             else {
+                cout << "---------------------------------------------------" << endl;
                 cout << "Song not found" << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "---------------------------------------------------" << endl;
+                end = chrono::steady_clock::now();
+                elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
-        cout << "Time for Jump Search in seconds: " << elapsed.count() << endl;
+        cout << "Time for Jump Search in nanoseconds: " << elapsed << endl;
         return option2;
     }
     else if (option2 == 2) {
         if (option < 3 || option == 5) {
-            start = std::chrono::high_resolution_clock::now();
+            start = chrono::steady_clock::now();
             index = FibonacciSearchString(v, s, option);
+            end = chrono::steady_clock::now();
+            elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetString(option) == s) {
@@ -776,19 +784,21 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "Total Number of Songs: " << total << endl << endl;
             }
             else {
+                cout << "---------------------------------------------------" << endl;
                 cout << "Song not found" << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "---------------------------------------------------" << endl;
+                end = chrono::steady_clock::now();
+                elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
         else {
-            start = std::chrono::high_resolution_clock::now();
+            start = chrono::steady_clock::now();
             index = FibonacciSearchFloat(v, f, option);
+            end = chrono::steady_clock::now();
+            elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             if (index != -1) {
                 int i = index;
                 while (i > -1 && v.at(i).GetFloat(option) == f) {
@@ -802,17 +812,17 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "Total Number of Songs: " << total << endl << endl;
             }
             else {
+                cout << "---------------------------------------------------" << endl;
                 cout << "Song not found" << endl;
-                end = std::chrono::high_resolution_clock::now();
-                elapsed = end - start;
+                cout << "---------------------------------------------------" << endl;
+                end = chrono::steady_clock::now();
+                elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
-        cout << "Time for Fibonacci Search in seconds: " << elapsed.count() << endl;
+        cout << "Time for Fibonacci Search in nanoseconds: " << elapsed << endl;
         return option2;
     }
     else {
