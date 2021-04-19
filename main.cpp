@@ -28,24 +28,8 @@ int main() {
 
     vector<Song> shell;
     vector<Song> merge;
-    string path = "example.csv";
+    string path = "data.csv";
     LoadData(path, shell, merge);
-
-    /*
-    MergeSort(merge, 0, merge.size() - 1, 1);
-    SearchOption(merge, 1);
-
-    for(int i = 0; i < shell.size(); i++) {
-        cout << "name: " << shell.at(i).GetName() << endl;
-        cout << "artist: " << shell.at(i).GetArtist() << endl;
-        cout << "popularity: " << shell.at(i).GetPopularity() << endl;
-        cout << "danceability: " << shell.at(i).GetDanceability() << endl;
-        cout << "duration: " << shell.at(i).GetTime() << endl;
-        cout << "tempo: " << shell.at(i).GetTempo() << endl;
-        cout << "year: " << shell.at(i).GetYear() << endl;
-        cout << endl;
-    }
-     */
 
     int option = 0;
     int sortedBy = 0;
@@ -183,13 +167,14 @@ void Merge(vector<Song> &v, int left, int mid, int right, int option) {
     // Create X ← arr[left..mid] & Y ← arr[mid+1..right]
     int n1 = mid - left + 1;
     int n2 = right - mid;
-    Song X[n1], Y[n2];
+    vector<Song> X;
+    vector<Song> Y;
 
     for (int i = 0; i < n1; i++) {
-        X[i] = v.at(left + i);
+        X.push_back(v.at(left + i));
     }
     for (int j = 0; j < n2; j++) {
-        Y[j] = v.at(mid + 1 + j);
+        Y.push_back(v.at(mid + 1 + j));
     }
 
     // Merge the arrays X and Y into arr
@@ -202,6 +187,12 @@ void Merge(vector<Song> &v, int left, int mid, int right, int option) {
     if (option < 3) {
         // Combine the arrays in sorted order
         while (i < n1 && j < n2) {
+            //cout << "n1: " << n1 << endl;
+            //cout << "i: " << i << endl;
+            //cout << "n2: " << n2 << endl;
+            //cout << "j: " << j << endl;
+            //cout << "X: " << X[i].GetString(option) << endl;
+            //cout << "Y: " << Y[j].GetString(option) << endl;
             if (X[i].GetString(option) <= Y[j].GetString(option)) {
                 v.at(k) = X[i];
                 i++;
@@ -287,7 +278,7 @@ void LoadData(string &path, vector<Song> &one, vector<Song> &two) {
         float tempo = stof(s);
 
         // Get year
-        getline(lineStream, s);
+        getline(lineStream, s, ',');
         float year = stof(s);
 
         // Make new Song
@@ -430,14 +421,16 @@ int FibonacciSearchFloat(vector<Song> &v, float search, int option) {
 
     int offset = -1;
 
-    while (fib3 > 1) {
+    while (fib3 > 1 && offset < (int)v.size() - 1) {
         int i;
+
         if (offset + fib1 <= v.size() - 1) {
             i = offset + fib1;
         }
         else {
             i = v.size() - 1;
         }
+
         if (search > v.at(i).GetFloat(option)) {
             fib3 = fib2;
             fib2 = fib1;
@@ -454,8 +447,14 @@ int FibonacciSearchFloat(vector<Song> &v, float search, int option) {
         }
     }
 
-    if (fib2 != 0 && v.at(offset + 1).GetFloat(option) == search) {
-        return offset + 1;
+    if (fib2 != 0 && v.at(offset).GetFloat(option) == search) {
+        return offset;
+    }
+
+    if (offset + 1 < v.size()) {
+        if (fib2 != 0 && v.at(offset + 1).GetFloat(option) == search) {
+            return offset + 1;
+        }
     }
 
     // If nothing has been returned, it doesn't exist
