@@ -24,6 +24,7 @@ void PrintSearchOptionMenu();
 int SortOption(vector<Song> &shell, vector<Song> &merge, int option);
 int SearchOption(vector<Song> &v, int option);
 void PrintSong(Song &s);
+void ListOption(vector<Song> &v, int option);
 
 int main() {
 
@@ -60,7 +61,7 @@ int main() {
             cin >> option;
 
             // Enter another number if it's not 1 or 2
-            if (option != -1 && option != 1 && option != 2) {
+            if (option != -1 && option != 1 && option != 2 && option != 3) {
                 cout << "Error: Please enter a valid option." << endl;
             }
             else {
@@ -78,6 +79,9 @@ int main() {
                 // Search
                 case 2:
                     option = SearchOption(shell, sortedBy);
+                    break;
+                case 3:
+                    ListOption(shell, sortedBy);
                     break;
                 default:
                     break;
@@ -376,7 +380,7 @@ int FibonacciSearchString(vector<Song> &v, string search, int option) {
 
     int offset = -1;
 
-    while (fib3 > 1) {
+    while (fib3 > 1 && offset < (int)v.size() - 1) {
         int i;
         if (offset + fib1 <= v.size() - 1) {
             i = offset + fib1;
@@ -400,8 +404,14 @@ int FibonacciSearchString(vector<Song> &v, string search, int option) {
         }
     }
 
-    if (fib2 != 0 && v.at(offset + 1).GetString(option) == search) {
-        return offset + 1;
+    if (fib2 != 0 && v.at(offset).GetString(option) == search) {
+        return offset;
+    }
+
+    if (offset + 1 < v.size()) {
+        if (fib2 != 0 && v.at(offset + 1).GetString(option) == search) {
+            return offset + 1;
+        }
     }
 
     // If nothing has been returned, it doesn't exist
@@ -467,6 +477,7 @@ void PrintMainMenu() {
     cout << "Main Menu" << endl;
     cout << "1. Sort" << endl;
     cout << "2. Search" << endl;
+    cout << "3. List Top 5" << endl;
     cout << "(Enter an option, type -1 to exit)" << endl;
     cout << "---------------------------------------------------" << endl;
 }
@@ -657,7 +668,7 @@ int SearchOption(vector<Song> &v, int option) {
             cout << "---------------------------------------------------" << endl;
             cout << "Enter a duration you want to search for" << endl;
             cout << "---------------------------------------------------" << endl;
-            cin >> f;
+            cin >> s;
             break;
         case 6:
             cout << "---------------------------------------------------" << endl;
@@ -689,17 +700,17 @@ int SearchOption(vector<Song> &v, int option) {
     }
 
     if (option2 == 1) {
-        if (option < 3) {
+        if (option < 3 || option == 5) {
             start = std::chrono::high_resolution_clock::now();
             index = JumpSearchString(v, s, option);
             if (index != -1) {
                 int i = index;
-                while (v.at(i).GetString(option) == s && i > -1) {
+                while (i > -1 && v.at(i).GetString(option) == s) {
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
-                while (v.at(i).GetString(option) == s && i < v.size()) {
+                while (i < v.size() && v.at(i).GetString(option) == s) {
                     PrintSong(v.at(i));
                     i++;
                 }
@@ -717,12 +728,13 @@ int SearchOption(vector<Song> &v, int option) {
             index = JumpSearchFloat(v, f, option);
             if (index != -1) {
                 int i = index;
-                while (v.at(i).GetFloat(option) == f && i > -1) {
+                while (i > -1 && v.at(i).GetFloat(option) == f) {
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
-                while (v.at(i).GetFloat(option) == f && i < v.size()) {
+
+                while (i < v.size() && v.at(i).GetFloat(option) == f) {
                     PrintSong(v.at(i));
                     i++;
                 }
@@ -739,17 +751,17 @@ int SearchOption(vector<Song> &v, int option) {
         return option2;
     }
     else if (option2 == 2) {
-        if (option < 3) {
+        if (option < 3 || option == 5) {
             start = std::chrono::high_resolution_clock::now();
             index = FibonacciSearchString(v, s, option);
             if (index != -1) {
                 int i = index;
-                while (v.at(i).GetString(option) == s && i > -1) {
+                while (i > -1 && v.at(i).GetString(option) == s) {
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
-                while (v.at(i).GetString(option) == s && i < v.size()) {
+                while (i < v.size() && v.at(i).GetString(option) == s) {
                     PrintSong(v.at(i));
                     i++;
                 }
@@ -767,12 +779,12 @@ int SearchOption(vector<Song> &v, int option) {
             index = FibonacciSearchFloat(v, f, option);
             if (index != -1) {
                 int i = index;
-                while (v.at(i).GetFloat(option) == f && i > -1) {
+                while (i > -1 && v.at(i).GetFloat(option) == f) {
                     PrintSong(v.at(i));
                     i--;
                 }
                 i = index + 1;
-                while (v.at(i).GetFloat(option) == f && i < v.size()) {
+                while (i < v.size() && v.at(i).GetFloat(option) == f) {
                     PrintSong(v.at(i));
                     i++;
                 }
@@ -805,5 +817,9 @@ void PrintSong(Song &s) {
     cout << endl;
 }
 
-
+void ListOption(vector<Song> &v, int option) {
+    for(int i = v.size() - 1; i > v.size() - 6; i--) {
+        PrintSong(v.at(i));
+    }
+}
 

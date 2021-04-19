@@ -30,6 +30,9 @@ string Song::GetString(int option) {
         case 2:
             return artist;
             break;
+        case 5:
+            return time;
+            break;
         default:
             return "";
             break;
