@@ -39,18 +39,18 @@ int main() {
     int sortedBy = 0;
 
     // In order to search, the vectors must be sorted
-    cout << "---------------------------------------------------" << endl;
-    cout << "Welcome to the Song Searcher" << endl;
-    cout << "Songs Have 8 Characteristics: " << endl;
-    cout << "   Name of the Song" << endl;
-    cout << "   Artist" << endl;
-    cout << "   Popularity (Ranges from 0 to 100)" << endl;
-    cout << "   Danceability (Ranges from 0 to 1)" << endl;
-    cout << "   Duration of the Song" << endl;
-    cout << "   Tempo in Beats per Minute" << endl;
-    cout << "   Year the Song was Released" << endl;
-    cout << "First, Choose a Characteristic to Sort the Songs By" << endl;
-    cout << "---------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Welcome to the Song Searcher" << endl;
+    cout << "     Songs Have 8 Characteristics: " << endl;
+    cout << "        Name of the Song" << endl;
+    cout << "        Artist" << endl;
+    cout << "        Popularity (Ranges from 0 to 100)" << endl;
+    cout << "        Danceability (Ranges from 0 to 1)" << endl;
+    cout << "        Duration of the Song" << endl;
+    cout << "        Tempo in Beats per Minute" << endl;
+    cout << "        Year the Song was Released" << endl;
+    cout << "     First, Choose a Characteristic to Sort the Songs By" << endl;
+    cout << "--------------------------------------------------------" << endl;
     option = SortOption(shell, merge, option);
     sortedBy = option;
 
@@ -64,7 +64,9 @@ int main() {
 
             // Enter another number if it's not 1 or 2
             if (option != -1 && option != 1 && option != 2 && option != 3) {
-                cout << "Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
             }
             else {
                 break;
@@ -194,12 +196,6 @@ void Merge(vector<Song> &v, int left, int mid, int right, int option) {
     if (option < 3) {
         // Combine the arrays in sorted order
         while (i < n1 && j < n2) {
-            //cout << "n1: " << n1 << endl;
-            //cout << "i: " << i << endl;
-            //cout << "n2: " << n2 << endl;
-            //cout << "j: " << j << endl;
-            //cout << "X: " << X[i].GetString(option) << endl;
-            //cout << "Y: " << Y[j].GetString(option) << endl;
             if (X[i].GetString(option) <= Y[j].GetString(option)) {
                 v.at(k) = X[i];
                 i++;
@@ -475,45 +471,45 @@ int FibonacciSearchFloat(vector<Song> &v, float search, int option) {
 }
 
 void PrintMainMenu() {
-    cout << "---------------------------------------------------" << endl;
-    cout << "Main Menu" << endl;
-    cout << "1. Sort" << endl;
-    cout << "2. Search" << endl;
-    cout << "3. List Top Songs" << endl;
-    cout << "(Enter an option, type -1 to exit)" << endl;
-    cout << "---------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Main Menu" << endl;
+    cout << "     1. Sort" << endl;
+    cout << "     2. Search" << endl;
+    cout << "     3. List Top Songs" << endl;
+    cout << "     (Enter an option, type -1 to exit)" << endl;
+    cout << "--------------------------------------------------------" << endl;
 }
 
 void PrintSortMenu() {
-    cout << "---------------------------------------------------" << endl;
-    cout << "Would you like to sort by: " << endl;
-    cout << "1. Song Name" << endl;
-    cout << "2. Artist" << endl;
-    cout << "3. Popularity" << endl;
-    cout << "4. Danceability" << endl;
-    cout << "5. Song Duration" << endl;
-    cout << "6. Tempo" << endl;
-    cout << "7. Year" << endl;
-    cout << "(Enter an option, type -1 to exit)" << endl;
-    cout << "---------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Would you like to sort by: " << endl;
+    cout << "     1. Song Name" << endl;
+    cout << "     2. Artist" << endl;
+    cout << "     3. Popularity" << endl;
+    cout << "     4. Danceability" << endl;
+    cout << "     5. Song Duration" << endl;
+    cout << "     6. Tempo" << endl;
+    cout << "     7. Year" << endl;
+    cout << "     (Enter an option, type -1 to exit)" << endl;
+    cout << "--------------------------------------------------------" << endl;
 }
 
 void PrintSortOptionMenu() {
-    cout << "---------------------------------------------------" << endl;
-    cout << "Would you like to use: " << endl;
-    cout << "1. Shell Sort" << endl;
-    cout << "2. Merge Sort" << endl;
-    cout << "(Enter an option, type -1 to exit)" << endl;
-    cout << "---------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Would you like to use: " << endl;
+    cout << "     1. Shell Sort" << endl;
+    cout << "     2. Merge Sort" << endl;
+    cout << "     (Enter an option, type -1 to exit)" << endl;
+    cout << "--------------------------------------------------------" << endl;
 }
 
 void PrintSearchOptionMenu() {
-    cout << "---------------------------------------------------" << endl;
-    cout << "Would you like to use: " << endl;
-    cout << "1. Jump Search" << endl;
-    cout << "2. Fibonacci Search" << endl;
-    cout << "(Enter an option, type -1 to exit)" << endl;
-    cout << "---------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Would you like to use: " << endl;
+    cout << "     1. Jump Search" << endl;
+    cout << "     2. Fibonacci Search" << endl;
+    cout << "     (Enter an option, type -1 to exit)" << endl;
+    cout << "--------------------------------------------------------" << endl;
 }
 
 int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
@@ -531,7 +527,9 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
 
         // Enter another number if option is not valid
         if (option != -1 && (option < 1 || option > 7)) {
-            cout << "Error: Please enter a valid option." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Error: Please enter a valid option." << endl;
+            cout << "--------------------------------------------------------" << endl;
         }
         else {
             break;
@@ -545,7 +543,9 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
 
         // Enter another number if option is not valid
         if (option2 != -1 && option2 != 1 && option2 != 2) {
-            cout << "Error: Please enter a valid option." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Error: Please enter a valid option." << endl;
+            cout << "--------------------------------------------------------" << endl;
         }
         else {
             break;
@@ -557,7 +557,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         ShellSort(shell, option);
         end = std::chrono::high_resolution_clock::now();
         elapsed = end - start;
-        cout << "Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
+        cout << "     Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
 
         start = std::chrono::high_resolution_clock::now();
         MergeSort(merge, 0, merge.size() - 1, option);
@@ -566,16 +566,18 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
 
         // This while loop is to get a valid option
         while (option2 != -1) {
-            cout << "---------------------------------------------------" << endl;
-            cout << "Do you want to compare this time with Merge Sort?" << endl;
-            cout << "1. Yes" << endl;
-            cout << "2. No" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Do you want to compare this time with Merge Sort?" << endl;
+            cout << "     1. Yes" << endl;
+            cout << "     2. No" << endl;
+            cout << "--------------------------------------------------------" << endl;
 
             cin >> compare;
             // Enter another number if option is not valid
             if (compare != 1 && compare != 2) {
-                cout << "Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
             }
             else {
                 break;
@@ -583,7 +585,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         }
 
         if(compare == 1) {
-            cout << "Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
+            cout << "     Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
         }
     }
     else if(option2 == 2) {
@@ -591,7 +593,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         MergeSort(merge, 0, merge.size() - 1, option);
         end = std::chrono::high_resolution_clock::now();
         elapsed = end - start;
-        cout << "Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
+        cout << "     Time for Merge Sort in milliseconds: " << elapsed.count() * 1000 << endl;
 
         start = std::chrono::high_resolution_clock::now();
         ShellSort(shell, option);
@@ -600,16 +602,18 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
 
         // This while loop is to get a valid option
         while (option2 != -1) {
-            cout << "---------------------------------------------------" << endl;
-            cout << "Do you want to compare this time with Shell Sort?" << endl;
-            cout << "1. Yes" << endl;
-            cout << "2. No" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Do you want to compare this time with Shell Sort?" << endl;
+            cout << "     1. Yes" << endl;
+            cout << "     2. No" << endl;
+            cout << "--------------------------------------------------------" << endl;
 
             cin >> compare;
             // Enter another number if option is not valid
             if (compare != 1 && compare != 2) {
-                cout << "Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Error: Please enter a valid option." << endl;
+                cout << "--------------------------------------------------------" << endl;
             }
             else {
                 break;
@@ -617,7 +621,7 @@ int SortOption(vector<Song> &shell, vector<Song> &merge, int option) {
         }
 
         if(compare == 1) {
-            cout << "Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
+            cout << "     Time for Shell Sort in milliseconds: " << elapsed.count() * 1000 << endl;
         }
     }
 
@@ -642,47 +646,47 @@ int SearchOption(vector<Song> &v, int option) {
 
     switch (option) {
         case 1:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a song name you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a song name you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             getline(cin, s);
             getline(cin, s);
             break;
         case 2:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a artist you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a artist you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             getline(cin, s);
             getline(cin, s);
             break;
         case 3:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a popularity you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a popularity you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             cin >> f;
             break;
         case 4:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a danceability you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a danceability you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             cin >> f;
             break;
         case 5:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a duration you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a duration you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             cin >> s;
             break;
         case 6:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a tempo you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a tempo you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             cin >> f;
             break;
         case 7:
-            cout << "---------------------------------------------------" << endl;
-            cout << "Enter a year you want to search for" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Enter a year you want to search for" << endl;
+            cout << "--------------------------------------------------------" << endl;
             cin >> f;
             break;
         default:
@@ -695,9 +699,9 @@ int SearchOption(vector<Song> &v, int option) {
         cin >> option2;
         // Enter another number if option is not valid
         if (option2 != -1 && option2 != 1 && option2 != 2) {
-            cout << "---------------------------------------------------" << endl;
-            cout << "Error: Please enter a valid option." << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Error: Please enter a valid option." << endl;
+            cout << "--------------------------------------------------------" << endl;
         }
         else {
             break;
@@ -723,12 +727,12 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl << endl;
+                cout << "     Total Number of Songs: " << total << endl << endl;
             }
             else {
-                cout << "---------------------------------------------------" << endl;
-                cout << "Song not found" << endl;
-                cout << "---------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Song not found" << endl;
+                cout << "--------------------------------------------------------" << endl;
                 end = chrono::steady_clock::now();
                 elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
@@ -752,17 +756,17 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl << endl;
+                cout << "     Total Number of Songs: " << total << endl << endl;
             }
             else {
-                cout << "---------------------------------------------------" << endl;
-                cout << "Song not found" << endl;
-                cout << "---------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Song not found" << endl;
+                cout << "--------------------------------------------------------" << endl;
                 end = chrono::steady_clock::now();
                 elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
-        cout << "Time for Jump Search in nanoseconds: " << elapsed << endl;
+        cout << "     Time for Jump Search in nanoseconds: " << elapsed << endl;
         return option2;
     }
     else if (option2 == 2) {
@@ -784,12 +788,12 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl << endl;
+                cout << "     Total Number of Songs: " << total << endl << endl;
             }
             else {
-                cout << "---------------------------------------------------" << endl;
-                cout << "Song not found" << endl;
-                cout << "---------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Song not found" << endl;
+                cout << "--------------------------------------------------------" << endl;
                 end = chrono::steady_clock::now();
                 elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
@@ -812,17 +816,17 @@ int SearchOption(vector<Song> &v, int option) {
                     PrintSong(v.at(i));
                     i++;
                 }
-                cout << "Total Number of Songs: " << total << endl << endl;
+                cout << "     Total Number of Songs: " << total << endl << endl;
             }
             else {
-                cout << "---------------------------------------------------" << endl;
-                cout << "Song not found" << endl;
-                cout << "---------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------" << endl;
+                cout << "     Song not found" << endl;
+                cout << "--------------------------------------------------------" << endl;
                 end = chrono::steady_clock::now();
                 elapsed = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
             }
         }
-        cout << "Time for Fibonacci Search in nanoseconds: " << elapsed << endl;
+        cout << "     Time for Fibonacci Search in nanoseconds: " << elapsed << endl;
         return option2;
     }
     else {
@@ -832,13 +836,13 @@ int SearchOption(vector<Song> &v, int option) {
 }
 
 void PrintSong(Song &s) {
-    cout << "Name: " << s.GetName() << endl;
-    cout << "Artist: " << s.GetArtist() << endl;
-    cout << "Popularity: " << s.GetPopularity() << endl;
-    cout << "Danceability: " << s.GetDanceability() << endl;
-    cout << "Duration: " << s.GetTime() << endl;
-    cout << "Tempo: " << s.GetTempo() << endl;
-    cout << "Year: " << s.GetYear() << endl;
+    cout << "     Name: " << s.GetName() << endl;
+    cout << "     Artist: " << s.GetArtist() << endl;
+    cout << "     Popularity: " << s.GetPopularity() << endl;
+    cout << "     Danceability: " << s.GetDanceability() << endl;
+    cout << "     Duration: " << s.GetTime() << endl;
+    cout << "     Tempo: " << s.GetTempo() << endl;
+    cout << "     Year: " << s.GetYear() << endl;
     cout << endl;
 }
 
@@ -846,56 +850,60 @@ void ListOption(vector<Song> &v, int option) {
     int list = 0;
 
     while (list > v.size() || list < 1) {
-        cout << "---------------------------------------------------" << endl;
-        cout << "How many songs do you want to list?" << endl;
-        cout << "---------------------------------------------------" << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << "     How many songs do you want to list?" << endl;
+        cout << "--------------------------------------------------------" << endl;
         cin >> list;
 
         if (list > v.size()) {
-            cout << "Error: Value is too large." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Error: Value is too large." << endl;
+            cout << "--------------------------------------------------------" << endl;
         }
         else if (list < 1) {
-            cout << "Error: Value is too small." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << "     Error: Value is too small." << endl;
+            cout << "--------------------------------------------------------" << endl;
         }
     }
 
-    cout << "---------------------------------------------------" << endl;
-    cout << "Top " << to_string(list) << " songs by ";
+    cout << "--------------------------------------------------------" << endl;
+    cout << "     Top " << to_string(list) << " songs by ";
 
     switch (option) {
         case 1:
             cout << "Name:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintForwards(v, list);
             break;
         case 2:
             cout << "Artist:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintForwards(v, list);
             break;
         case 3:
             cout << "Popularity:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 4:
             cout << "Danceability:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 5:
             cout << "Duration:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 6:
             cout << "Tempo:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintBackwards(v, list);
             break;
         case 7:
             cout << "Year:" << endl;
-            cout << "---------------------------------------------------" << endl;
+            cout << "--------------------------------------------------------" << endl;
             PrintForwards(v, list);
     }
 
